@@ -1,4 +1,7 @@
+from flask import Flask, render_template, request
 import pandas as pd
+
+app = Flask(__name__)
 
 pokemon_list_url = 'https://gist.githubusercontent.com/armgilles/194bcff35001e7eb53a2a8b441e8b2c6/raw/92200bc0a673d5ce2110aaad4544ed6c4010f687/pokemon.csv'
 types_chart_url = 'https://raw.githubusercontent.com/zonination/pokemon-chart/master/chart.csv'
@@ -52,23 +55,26 @@ def calculate_type_weakness(pokemon_name):
 
     return ", ".join(weaknesses)
 
-def main():
-    while True:
-        pokemon_name = input("Enter a Pokémon name (or 'exit' to quit): ").strip().capitalize()
-        if pokemon_name.lower() == 'exit':
-            break
-        weaknesses = calculate_type_weakness(pokemon_name)
-        print(f"Weaknesses for {pokemon_name}: {weaknesses}")
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/weakness', methods=['POST'])
+def weakness():
+    pokemon_name = request.form['pokemon_name']
+    weaknesses = calculate_type_weakness(pokemon_name)
+    return render_template('index.html', pokemon_name=pokemon_name, weaknesses=weaknesses)
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)
 
+# def main():
+#     while True:
+#         pokemon_name = input("Enter a Pokémon name (or 'exit' to quit): ").strip().capitalize()
+#         if pokemon_name.lower() == 'exit':
+#             break
+#         weaknesses = calculate_type_weakness(pokemon_name)
+#         print(f"Weaknesses for {pokemon_name}: {weaknesses}")
 
-# ice_column = df.loc[:, 'Ice']
-
-# # 2. Find Rows (Attacking Types) Where the Value is 2
-# ice_weaknesses = ice_column[ice_column == 2].index.tolist()
-
-# print("Ice is weak against:", ice_weaknesses)
-
-
+# if __name__ == "__main__":
+#     main()

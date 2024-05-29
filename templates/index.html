@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pokémon Go Toolkit</title>
+    </head>
+
+    <body>
+        <h1>Type Weakness Checker</h1>
+        <form method="POST" action="/weakness">
+            <label for="pokemon_name">Enter Pokémon Name:</label>
+            <input type="text" id="pokemon_name" name="pokemon_name" required>
+            <button type="submit">Check Weakness</button>
+        </form>
+
+        {% if pokemon_name %}
+            <h2>Weaknesses for {{ pokemon_name }}:</h2>
+            <p>{{ weaknesses }}</p>
+        {% endif %}
+        
+    </body>
+
+</html>
