@@ -4,21 +4,43 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pokémon Go Toolkit</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
     </head>
 
     <body>
-        <h1>Type Weakness Checker</h1>
-        <form method="POST" action="/weakness">
-            <label for="pokemon_name">Enter Pokémon Name:</label>
-            <input type="text" id="pokemon_name" name="pokemon_name" required>
-            <button type="submit">Check Weakness</button>
-        </form>
+        <div>
+            <h1>Type Weakness Checker</h1>
+            <div>
+                <form method="POST" action="/weakness">
+                    <label for="pokemon_name">Enter A Pokémon Name:</label>
+                    <input type="text" id="pokemon_name" name="pokemon_name" required>
+                    <button type="submit">Find Weaknesses</button>
+                </form>
+            </div>
+            
+        </div>
 
-        {% if pokemon_name %}
-            <h2>Weaknesses for {{ pokemon_name }}:</h2>
-            <p>{{ weaknesses }}</p>
-        {% endif %}
+        <div>
+            {% if pokemon_name %}
+                <h2>Weaknesses for {{ pokemon_name }}:</h2>
+                <span>
+                    {% for weakness in all_weaknesses %}
+                        {% if weakness.name in weaknesses %}
+                            <span class="weakness" style="background-color: {{ weakness.color }};">{{ weakness.name }}</span>
+                        {% endif %}   
+                    {% endfor %}
+                </span>
+
+            {% endif %}
+
+        </div>
+
         
+
     </body>
+
+    <script>
+
+    </script>
 
 </html>
