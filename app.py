@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import pandas as pd
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 pokemon_list_url = 'https://gist.githubusercontent.com/armgilles/194bcff35001e7eb53a2a8b441e8b2c6/raw/92200bc0a673d5ce2110aaad4544ed6c4010f687/pokemon.csv'
 types_chart_url = 'https://raw.githubusercontent.com/zonination/pokemon-chart/master/chart.csv'

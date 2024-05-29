@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pokémon Go Toolkit</title>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap">
+
     </head>
 
     <body>
@@ -23,10 +25,14 @@
         <div>
             {% if pokemon_name %}
                 <h2>Weaknesses for {{ pokemon_name }}:</h2>
-                <span>
+                <span style="display: flex; justify-content: center; align-items: center;">
                     {% for weakness in all_weaknesses %}
                         {% if weakness.name in weaknesses %}
-                            <span class="weakness" style="background-color: {{ weakness.color }};">{{ weakness.name }}</span>
+                            <span class="weakness">
+                                <img src="{{ url_for('static', filename='images/' + weakness.name.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
+                                {{ weakness.name }}
+                            </span>
+                           
                         {% endif %}   
                     {% endfor %}
                 </span>
