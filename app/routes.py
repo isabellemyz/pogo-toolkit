@@ -1,12 +1,14 @@
 from flask import Blueprint, render_template, request
 from .services.calculator import calculate_type_weakness
 # from .services.scraper import get_latest_raid_info
+from .services.scraper import find_bosses
 
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    bosses = find_bosses('https://leekduck.com/boss/')
+    return render_template('index.html', bosses=bosses)
 
 @main.route('/weakness', methods=['POST'])
 def weakness():
@@ -33,3 +35,8 @@ def weakness():
         {"name": "WATER", "color": "#6390F0"}  
     ]
     return render_template('index.html', pokemon_name=pokemon_name, weaknesses=weaknesses, all_weaknesses=all_weaknesses)
+
+# @main.route('/raids')
+# def raids():
+#     bosses = find_bosses('https://leekduck.com/boss/')
+#     return render_template('raid_info.html', bosses=bosses)
