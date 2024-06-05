@@ -1,14 +1,17 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, g
 from .services.calculator import calculate_type_weakness
 # from .services.scraper import get_latest_raid_info
 from .services.scraper import find_bosses
 
 main = Blueprint('main', __name__)
 
+@main.before_request
+def before_request():
+    g.bosses = find_bosses('https://leekduck.com/boss/')
+
 @main.route('/')
 def index():
-    bosses = find_bosses('https://leekduck.com/boss/')
-    return render_template('index.html', bosses=bosses)
+    return render_template('index.html')
 
 @main.route('/weakness', methods=['POST'])
 def weakness():

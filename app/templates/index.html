@@ -4,18 +4,111 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pokémon Go Toolkit</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap">
+
 
     </head>
 
     <body>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="text-center">Pokémon Go Toolkit</h1>
+                </div>
+            </div>
 
-        <div>
-            <p>{{ bosses }}</p>
+            <hr/>
+
+            <div class="row">
+                <div class="col-7">
+                    <h2>TYPE WEAKNESS CHECKER</h2>
+                        <div>
+                            <form method="POST" action="/weakness">
+                                <div class="form-group">
+                                    <label for="pokemon_name">Enter A Pokémon Name:</label>
+                                    <input type="text" id="pokemon_name" name="pokemon_name" class="form-control" required>
+
+                                </div>
+                                
+                                <button type="submit">Find Weaknesses</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            {% if pokemon_name %}
+                                <h3>Weaknesses for {{ pokemon_name }}:</h3>
+                                <div class="d-flex flex-wrap" style="align-items: flex-start;">
+                                    {% for weakness in all_weaknesses %}
+                                        {% if weakness.name in weaknesses %}
+                                            <div class="weakness d-flex align-items-center" style="margin-right: 10px; margin-bottom: 10px;">
+                                                <img src="{{ url_for('static', filename='images/' + weakness.name.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
+                                                {{ weakness.name }}
+                                            </div>
+                                        {% endif %}   
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>     
+                </div>
+
+                <div class="col-5">
+                    <h3>CURRENT RAID BOSSES</h3>
+                    {% if g.bosses %}
+                        <table class="table">
+                            <thead class="text-center">
+                                <tr>
+                                    {% for tier in g.bosses.keys() %}
+                                        <th scope="col">{{ tier }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                {% set max_rows = g.bosses.values() | map('length') | max %}
+                                {% for i in range(max_rows) %}
+                                    <tr>
+                                        {% for tier, pokemon_list in g.bosses.items() %}
+                                            <td>{{ pokemon_list[i] if i < (pokemon_list | length) else "" }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                <div class="col-7">
+                    {% if pokemon_name %}
+
+                        <h3>Weaknesses for {{ pokemon_name }}:</h3>
+
+                        <div class="d-flex flex-wrap" style="align-items: flex-start;">
+                            {% for weakness in all_weaknesses %}
+                                {% if weakness.name in weaknesses %}
+                                    <div class="weakness d-flex align-items-center" style="margin-right: 10px; margin-bottom: 10px;">
+                                        <img src="{{ url_for('static', filename='images/' + weakness.name.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
+                                        {{ weakness.name }}
+                                    </div>
+                                {% endif %}   
+                            {% endfor %}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+            </div> -->
+
+
         </div>
-        
-        <div>
+
+        <!--<div>
+            <p>{{ g.bosses }}</p>
+        </div>-->
+
+        <!--<div>
             <h1>Type Weakness Checker</h1>
             <div>
                 <form method="POST" action="/weakness">
@@ -25,9 +118,9 @@
                 </form>
             </div>
             
-        </div>
+        </div>-->
 
-        <div>
+        <!--<div>
             {% if pokemon_name %}
                 <h2>Weaknesses for {{ pokemon_name }}:</h2>
                 <span style="display: flex; justify-content: center; align-items: center;">
@@ -44,10 +137,13 @@
 
             {% endif %}
 
-        </div>
+        </div>-->
 
-        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+       
     </body>
 
     <script>
