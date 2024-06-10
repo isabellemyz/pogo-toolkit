@@ -27,27 +27,28 @@
                         <div>
                             <form method="POST" action="/weakness">
                                 <div class="form-group">
-                                    <label for="pokemon_name">Enter A Pokémon Name:</label>
+                                    <label for="pokemon_name">ENTER A POKÉMON:</label>
                                     <input type="text" id="pokemon_name" name="pokemon_name" class="form-control" required>
-
                                 </div>
                                 
-                                <button type="submit">Find Weaknesses</button>
+                                <button type="submit">FIND WEAKNESSES</button>
                             </form>
                         </div>
 
                         <div>
                             {% if pokemon_name %}
-                                <h3>Weaknesses for {{ pokemon_name }}:</h3>
+                                <h3>WEAKNESSES FOR {{ pokemon_name.upper() }}:</h3>
                                 <div class="d-flex flex-wrap" style="align-items: flex-start;">
-                                    {% for weakness in all_weaknesses %}
-                                        {% if weakness.name in weaknesses %}
-                                            <div class="weakness d-flex align-items-center" style="margin-right: 10px; margin-bottom: 10px;">
-                                                <img src="{{ url_for('static', filename='images/' + weakness.name.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
-                                                {{ weakness.name }}
-                                            </div>
-                                        {% endif %}   
-                                    {% endfor %}
+                                    {% if weaknesses %}
+                                        {% for weakness in all_weaknesses %}
+                                            {% if weakness.name in weaknesses %}
+                                                <div class="weakness d-flex align-items-center" style="margin-right: 10px; margin-bottom: 10px;">
+                                                    <img src="{{ url_for('static', filename='images/' + weakness.name.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
+                                                    {{ weakness.name }}
+                                                </div>
+                                            {% endif %}   
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         </div>     

@@ -13,7 +13,7 @@ def calculate_type_weakness(pokemon_name):
 
     # check that pokemon exists
     if pokemon.empty:
-        return f"\"{pokemon_name}\" not found"
+        return "POKÉMON NOT FOUND"
 
     # find type(s) of pokemon
     types = pokemon.iloc[0][['Type 1', 'Type 2']].dropna().values
