@@ -36,8 +36,8 @@
                         </div>
 
                         <div>
-                            {% if pokemon_name %}
-                                <h3>WEAKNESSES FOR {{ pokemon_name.upper() }}:</h3>
+                            {% if pokemon_name_w %}
+                                <h3>WEAKNESSES FOR {{ pokemon_name_w.upper() }}:</h3>
                                 <div class="d-flex flex-wrap" style="align-items: flex-start;">
                                     {% if weaknesses %}
                                         {% for weakness in all_weaknesses %}
@@ -77,6 +77,33 @@
                             </tbody>
                         </table>
                     {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-7">
+                    <h2>BEST MOVESET FINDER</h2>
+                        <div>
+                            <form method="POST" action="/moveset">
+                                <div class="form-group">
+                                    <label for="pokemon_name">ENTER A POKÉMON:</label>
+                                    <input type="text" id="pokemon_name" name="pokemon_name" class="form-control" required>
+                                </div>
+                                <button type="submit">FIND BEST MOVESET</button>
+                            </form>
+                        </div>
+
+                        <div>
+                            {% if pokemon_name_m %}
+                                <h3>BEST MOVESET FOR {{ pokemon_name_m.upper() }}:</h3>
+                                <div class="d-flex flex-wrap align-items-center" style="align-items: flex-start;">
+                                    {% for moveset_name, move in moveset.items() %}
+                                        {{ moveset_name.upper() }}: {{ move.upper() }}
+                                        <br>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div> 
                 </div>
             </div>
 

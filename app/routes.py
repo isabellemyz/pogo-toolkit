@@ -37,4 +37,10 @@ def weakness():
         {"name": "STEEL", "color": "#B7B7CE"},
         {"name": "WATER", "color": "#6390F0"}  
     ]
-    return render_template('index.html', pokemon_name=pokemon_name, weaknesses=weaknesses, all_weaknesses=all_weaknesses)
+    return render_template('index.html', pokemon_name_w=pokemon_name, weaknesses=weaknesses, all_weaknesses=all_weaknesses)
+
+@main.route('/moveset', methods=['POST'])
+def moveset():
+    pokemon_name = request.form['pokemon_name'].capitalize()
+    moveset = calculate_moveset(pokemon_name, False) # TODO: integrate Elite TM flag on frontend and pass to backend
+    return render_template('index.html', pokemon_name_m=pokemon_name, moveset=moveset)
