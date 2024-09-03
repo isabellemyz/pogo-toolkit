@@ -1,20 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 
-# def get_html(url):
-#     response = requests.get(url)
-#     return response.content
-
 def find_bosses(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
-
-    # boss_names = []
-
-    # for boss in soup.find_all('p', class_='boss-name'):
-    #     boss_names.append(boss.text.strip())
-    
-    # return boss_names
 
     bosses = {} # key: boss name, value: tier level
     boss_names = []
@@ -41,37 +30,3 @@ def find_bosses(url):
             bosses[tier_level] = boss_names
     
     return bosses
-
-
-
-
-'''
-HTML STRUCTURE ON LEEKDUCK:
-<li class="header-li">
-    <h2 class="boss-tier-header tier-1">TIER 1</h2>
-</li>
-<li class="boss-item>
-    <div class="boss-border">
-        <div class="boss-1">
-            <p class="boss-name">STARYU</p>
-        </div>
-    </div>
-</li>
-<li class="boss-item>
-    <div class="boss-border">
-        <div class="boss-1">
-            <p class="boss-name">ARON</p>
-        </div>
-    </div>
-</li>
-<li class="header-li">
-    <h2 class="boss-tier-header tier-3">TIER 3</h2>
-</li>
-<li class="boss-item>
-    <div class="boss-border">
-        <div class="boss-1">
-            <p class="boss-name">LAPRAS</p>
-        </div>
-    </div>
-</li>
-'''
