@@ -43,13 +43,15 @@
                                 <div class="d-flex flex-wrap" style="align-items: flex-start;">
                                     {% if weaknesses %}
                                         {% for pokemon, weakness_list in weaknesses.items() %}
-                                            <h4>{{ pokemon.upper() }}</h4>
-                                            {% for pokemon_weakness in weakness_list %}
-                                                <div class="weakness d-flex align-items-center" style="margin-right: 10px; margin-bottom: 10px;">
-                                                    <img src="{{ url_for('static', filename='images/' + pokemon_weakness.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
-                                                    {{ pokemon_weakness.upper() }}
-                                                </div>
-                                            {% endfor %}
+                                            <div class="d-flex flex-wrap" style="align-items: center;">
+                                                <h4>{{ pokemon.upper() }}</h4>
+                                                {% for pokemon_weakness in weakness_list %}
+                                                    <div class="weakness d-flex align-items-center" style="margin-right: 10px; margin-bottom: 10px;">
+                                                        <img src="{{ url_for('static', filename='images/' + pokemon_weakness.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
+                                                        {{ pokemon_weakness.upper() }}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
                                         {% endfor %}
                                     {% endif %}
                                 </div>
@@ -102,6 +104,7 @@
                         {% if pokemon_name_m %}
                             <h3>BEST MOVESET:</h3>
                             {% if moveset %}
+                                <div>
                                 {% for pokemon, moves in moveset.items() %}
                                     <h4>{{ pokemon.upper() }}</h4>
                                     {% for move_name, move in moves.items() %}
@@ -111,6 +114,7 @@
                                         </div>
                                     {% endfor %}
                                 {% endfor %}
+                                 </div>
                             {% endif %}
                         {% endif %}
                     </div> 
