@@ -100,13 +100,18 @@
 
                     <div>
                         {% if pokemon_name_m %}
-                            <h3>BEST MOVESET FOR {{ pokemon_name_m.upper() }}:</h3>
-                            <div class="d-flex flex-wrap align-items-center" style="align-items: flex-start;">
-                                {% for moveset_name, move in moveset.items() %}
-                                    {{ moveset_name.upper() }}: {{ move.upper() }}
-                                    <br>
+                            <h3>BEST MOVESET:</h3>
+                            {% if moveset %}
+                                {% for pokemon, moves in moveset.items() %}
+                                    <h4>{{ pokemon.upper() }}</h4>
+                                    {% for move_name, move in moves.items() %}
+                                        <div class="d-flex flex-wrap align-items-center" style="align-items: flex-start;">
+                                            {{ move_name.upper() }}: {{ move.upper() }}
+                                            <br>
+                                        </div>
+                                    {% endfor %}
                                 {% endfor %}
-                            </div>
+                            {% endif %}
                         {% endif %}
                     </div> 
                 </div>
