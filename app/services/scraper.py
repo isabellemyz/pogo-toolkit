@@ -74,7 +74,4 @@ HTML STRUCTURE ON LEEKDUCK:
         </div>
     </div>
 </li>
-
-
-
 '''

@@ -44,7 +44,6 @@ def find_weaknesses(pokemon_name):
 
 
 def filter_variants(weaknesses, variants):
-    print(variants)
     if variants:
         filtered_weaknesses = {
             name: weakness for name, weakness in weaknesses.items()
@@ -56,12 +55,9 @@ def filter_variants(weaknesses, variants):
     return weaknesses
 
 def calculate_type_weakness(pokemon_name, variants):
-    print(variants)
-
     base_name = pokemon_name.lower()
 
     # print(base_name)
-    # pokemon_name = format_name(pokemon_name, variants)
 
     weaknesses = {}
 
