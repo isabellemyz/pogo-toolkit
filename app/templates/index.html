@@ -29,6 +29,8 @@
                                 <div class="form-group">
                                     <label for="pokemon_name">ENTER A POKÉMON:</label>
                                     <input type="text" id="pokemon_name" name="pokemon_name" class="form-control" required>
+                                    <label for="variants">SPECIFICATION:</label>
+                                    <input type="text" id="variants" name="variants" class="form-control">
                                 </div>
                                 
                                 <button type="submit">FIND WEAKNESSES</button>
@@ -37,16 +39,17 @@
 
                         <div>
                             {% if pokemon_name_w %}
-                                <h3>WEAKNESSES FOR {{ pokemon_name_w.upper() }}:</h3>
+                                <h3>WEAKNESSES:</h3>
                                 <div class="d-flex flex-wrap" style="align-items: flex-start;">
                                     {% if weaknesses %}
-                                        {% for weakness in all_weaknesses %}
-                                            {% if weakness.name in weaknesses %}
+                                        {% for pokemon, weakness_list in weaknesses.items() %}
+                                            <h4>{{ pokemon.upper() }}</h4>
+                                            {% for pokemon_weakness in weakness_list %}
                                                 <div class="weakness d-flex align-items-center" style="margin-right: 10px; margin-bottom: 10px;">
-                                                    <img src="{{ url_for('static', filename='images/' + weakness.name.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
-                                                    {{ weakness.name }}
+                                                    <img src="{{ url_for('static', filename='images/' + pokemon_weakness.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
+                                                    {{ pokemon_weakness.upper() }}
                                                 </div>
-                                            {% endif %}   
+                                            {% endfor %}
                                         {% endfor %}
                                     {% endif %}
                                 </div>
@@ -83,27 +86,27 @@
             <div class="row">
                 <div class="col-7">
                     <h2>BEST MOVESET FINDER</h2>
-                        <div>
-                            <form method="POST" action="/moveset">
-                                <div class="form-group">
-                                    <label for="pokemon_name">ENTER A POKÉMON:</label>
-                                    <input type="text" id="pokemon_name" name="pokemon_name" class="form-control" required>
-                                </div>
-                                <button type="submit">FIND BEST MOVESET</button>
-                            </form>
-                        </div>
+                    <div>
+                        <form method="POST" action="/moveset">
+                            <div class="form-group">
+                                <label for="pokemon_name">ENTER A POKÉMON:</label>
+                                <input type="text" id="pokemon_name" name="pokemon_name" class="form-control" required>
+                            </div>
+                            <button type="submit">FIND BEST MOVESET</button>
+                        </form>
+                    </div>
 
-                        <div>
-                            {% if pokemon_name_m %}
-                                <h3>BEST MOVESET FOR {{ pokemon_name_m.upper() }}:</h3>
-                                <div class="d-flex flex-wrap align-items-center" style="align-items: flex-start;">
-                                    {% for moveset_name, move in moveset.items() %}
-                                        {{ moveset_name.upper() }}: {{ move.upper() }}
-                                        <br>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div> 
+                    <div>
+                        {% if pokemon_name_m %}
+                            <h3>BEST MOVESET FOR {{ pokemon_name_m.upper() }}:</h3>
+                            <div class="d-flex flex-wrap align-items-center" style="align-items: flex-start;">
+                                {% for moveset_name, move in moveset.items() %}
+                                    {{ moveset_name.upper() }}: {{ move.upper() }}
+                                    <br>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div> 
                 </div>
             </div>
 
