@@ -32,7 +32,6 @@
                                     <label for="variants">SPECIFICATION:</label>
                                     <input type="text" id="variants" name="variants" class="form-control">
                                 </div>
-                                
                                 <button type="submit">FIND WEAKNESSES</button>
                             </form>
                         </div>
@@ -90,31 +89,52 @@
                     <h2>BEST MOVESET FINDER</h2>
                     <div>
                         <form method="POST" action="/moveset">
-                            <div class="form-group">
-                                <label for="pokemon_name">ENTER A POKÉMON:</label>
-                                <input type="text" id="pokemon_name" name="pokemon_name" class="form-control" required>
-                                <label for="variants">SPECIFICATION:</label>
-                                <input type="text" id="variants" name="variants" class="form-control">
-                            </div>
-                            <button type="submit">FIND BEST MOVESET</button>
-                        </form>
-                    </div>
-
-                    <div>
-                        {% if pokemon_name_m %}
-                            <h3>BEST MOVESET:</h3>
-                            {% if moveset %}
-                                <div>
-                                {% for pokemon, moves in moveset.items() %}
-                                    <h4>{{ pokemon.upper() }}</h4>
-                                    {% for move_name, move in moves.items() %}
-                                        <div class="d-flex flex-wrap align-items-center" style="align-items: flex-start;">
-                                            {{ move_name.upper() }}: {{ move.upper() }}
-                                            <br>
+                            <div class="container">
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <label for="pokemon_name" class="form-label text-left">ENTER A POKÉMON:</label>
+                                        <input type="text" id="pokemon_name" name="pokemon_name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <label for="variants" class="form-label text-left">SPECIFICATION:</label>
+                                        <input type="text" id="variants" name="variants" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="elite_tm" name="elite_tm" style="scale: 1.5">
+                                            <label class="form-check-label text-left" for="elite_tm">INCLUDE ELITE MOVES</label>
                                         </div>
-                                    {% endfor %}
-                                {% endfor %}
-                                 </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">FIND BEST MOVESET</button>
+                        </form>
+                    </div>                                                         
+                        {% if pokemon_name_m %}
+                            <h3>BEST MOVESET</h3>
+                            {% if moveset %}
+                                <table class="table">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th></th>
+                                            <th>FAST MOVE</th>
+                                            <th>CHARGED MOVE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                        {% for pokemon, moves in moveset.items() %}
+                                            <tr>
+                                                <td>{{ pokemon.upper() }}</td>
+                                                <td>{{ moves['fast move'] }}</td>
+                                                <td>{{ moves['charged move'] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             {% endif %}
                         {% endif %}
                     </div> 
