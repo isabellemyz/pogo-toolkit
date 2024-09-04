@@ -8,7 +8,6 @@ def find_moveset(pokemon_name, base_name, elite_tm):
 
     if not elite_tm and base_name in ELITE_DF['name'].str.lower().values:
         elite_moves = ELITE_DF[ELITE_DF['name'].str.lower() == base_name]['elite'].values[0].split(', ') # getting elite moves for specific pokemon
-        print('elite moves', elite_moves)
         pokemon_moves = pokemon_moves[~pokemon_moves.apply(lambda row: any(move in elite_moves for move in [row['Fast Move'], row['Charged Move']]), axis=1)] # filters out elite moves for specific pokemon
     
     moveset['fast move'] = pokemon_moves.loc[pokemon_moves['ER'].idxmax(), 'Fast Move']
@@ -42,7 +41,5 @@ def calculate_moveset(pokemon_name, variants, elite_tm):
         moveset[variant_name] = find_moveset(variant_name, base_name, elite_tm)
     
     moveset = filter_moveset(moveset, variants)
-
-    print(moveset)
 
     return moveset
