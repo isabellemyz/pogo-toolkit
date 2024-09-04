@@ -7,8 +7,9 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap">
-
-
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
 
     <body>
@@ -26,36 +27,56 @@
                     <h2>TYPE WEAKNESS CHECKER</h2>
                         <div>
                             <form method="POST" action="/weakness">
-                                <div class="form-group">
-                                    <label for="pokemon_name">ENTER A POKÉMON:</label>
-                                    <input type="text" id="pokemon_name" name="pokemon_name" class="form-control" required>
-                                    <label for="variants">SPECIFICATION:</label>
-                                    <input type="text" id="variants" name="variants" class="form-control">
+                                <div class="container">
+                                    <div class="row mb-3">
+                                        <div class="col-12">
+                                            <label for="pokemon_name" class="form-label text-left">ENTER A POKÉMON:</label>
+                                            <input type="text" id="pokemon_name" name="pokemon_name" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-12">
+                                            <label for="variants" class="form-label text-left">SPECIFICATION:</label>
+                                            <input type="text" id="variants" name="variants" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
-                                <button type="submit">FIND WEAKNESSES</button>
+                                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">FIND WEAKNESSES</button>
                             </form>
                         </div>
 
                         <div>
                             {% if pokemon_name_w %}
-                                <h3>WEAKNESSES:</h3>
-                                <div class="d-flex flex-wrap" style="align-items: flex-start;">
-                                    {% if weaknesses %}
-                                        {% for pokemon, weakness_list in weaknesses.items() %}
-                                            <div class="d-flex flex-wrap" style="align-items: center;">
-                                                <h4>{{ pokemon.upper() }}</h4>
-                                                {% for pokemon_weakness in weakness_list %}
-                                                    <div class="weakness d-flex align-items-center" style="margin-right: 10px; margin-bottom: 10px;">
-                                                        <img src="{{ url_for('static', filename='images/' + pokemon_weakness.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
-                                                        {{ pokemon_weakness.upper() }}
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
+                            <h3>WEAKNESSES:</h3>
+                                {% if weaknesses %}
+                                    <table class="table">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbdoy class="text-center">
+                                            {% for pokemon, weakness_list in weaknesses.items() %}
+                                                <tr>
+                                                    <td>{{ pokemon.upper() }}</td>
+                                                    <td>
+                                                        {% for pokemon_weakness in weakness_list %}
+                                                            <div class="col-6 weakness d-flex align-items-center" style="margin-right: 10px; margin-bottom: 10px">
+                                                                <img src="{{ url_for('static', filename='images/' + pokemon_weakness.lower() + '.png') }}" style="width: 30px; height: 30px; margin-right: 5px">
+                                                                {{ pokemon_weakness.upper() }}
+                                                            </div>
+                                                        {% endfor %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbdoy>
+                                    </table>
+                                {% else %}
+                                    <h4>NO POKEMON FOUND</h4>
+                                {% endif %}
                             {% endif %}
-                        </div>     
+                        </div>
                 </div>
 
                 <div class="col-5">
@@ -83,6 +104,8 @@
                     {% endif %}
                 </div>
             </div>
+
+            <br>
 
             <div class="row">
                 <div class="col-7">
@@ -135,21 +158,13 @@
                                         {% endfor %}
                                     </tbody>
                                 </table>
+                            {% else %}
+                                <h4>NO POKEMON FOUND</h4>
                             {% endif %}
                         {% endif %}
                     </div> 
                 </div>
             </div>
         </div>
-
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     </body>
-
-    <script>
-
-    </script>
-
 </html>

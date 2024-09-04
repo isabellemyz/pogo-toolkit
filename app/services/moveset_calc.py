@@ -35,7 +35,7 @@ def calculate_moveset(pokemon_name, variants, elite_tm):
     pokemon_moves = MOVESET_DF.loc[MOVESET_DF['Pokemon'].str.contains(base_name, case=False)]
 
     if pokemon_moves.empty:
-        return "POKÉMON NOT FOUND"
+        return None
 
     for _, row in pokemon_moves.iterrows():
         variant_name = row['Pokemon'].lower()

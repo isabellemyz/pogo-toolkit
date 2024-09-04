@@ -49,7 +49,7 @@ def calculate_type_weakness(pokemon_name, variants):
     pokemon = POKEMON_DF.loc[POKEMON_DF['name'].str.contains(base_name, case=False)]
 
     if pokemon.empty:
-        return "POKÉMON NOT FOUND"
+        return None
 
     for _, row in pokemon.iterrows():
         variant_name = row['name'].lower()
